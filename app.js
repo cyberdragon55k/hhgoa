@@ -2766,30 +2766,60 @@ function drawCrew(){
     const count=people.length;
 
 
-    let photoSize;
-    let gap;
+    /*
+      Portrait (taller-than-wide) cards.
 
+      Square cards at count===3 previously
+      overflowed the 1080px canvas width
+      (350*3 + 35*2 = 1120px > 1080px),
+      which is why the third photo was
+      getting cut off at the edge.
+
+      Going portrait also fills the tall
+      1080×1350 canvas properly instead of
+      leaving a big empty gap between the
+      photos and the bottom label.
+    */
+
+    let photoW;
+    let photoH;
+    let gap;
+    let nameFontSize;
+    let numberFontSize;
+    let placeholderFontSize;
 
     if(count===1){
 
-      photoSize=520;
+      photoW=560;
+      photoH=680;
       gap=0;
+      nameFontSize=54;
+      numberFontSize=22;
+      placeholderFontSize=24;
 
     }else if(count===2){
 
-      photoSize=420;
+      photoW=430;
+      photoH=560;
       gap=55;
+      nameFontSize=46;
+      numberFontSize=20;
+      placeholderFontSize=22;
 
     }else{
 
-      photoSize=350;
-      gap=35;
+      photoW=300;
+      photoH=460;
+      gap=40;
+      nameFontSize=36;
+      numberFontSize=19;
+      placeholderFontSize=19;
 
     }
 
 
     const totalWidth=
-      count*photoSize+
+      count*photoW+
       (count-1)*gap;
 
 
@@ -2797,7 +2827,26 @@ function drawCrew(){
       (w-totalWidth)/2;
 
 
-    const photoY=330;
+    /* VERTICAL CENTERING */
+
+    const nameGap=58;
+    const numberGap=32;
+
+    const blockHeight=
+      photoH+nameGap+numberGap;
+
+    const contentTop=232;
+    const contentBottom=h-215;
+
+    const available=
+      contentBottom-contentTop;
+
+    const photoY=
+      contentTop+
+      Math.max(
+        0,
+        (available-blockHeight)/2
+      );
 
 
     people.forEach(
@@ -2805,7 +2854,7 @@ function drawCrew(){
 
         const x=
           startX+
-          index*(photoSize+gap);
+          index*(photoW+gap);
 
 
         /* PHOTO FRAME */
@@ -2813,8 +2862,8 @@ function drawCrew(){
         roundRectPath(
           x,
           photoY,
-          photoSize,
-          photoSize,
+          photoW,
+          photoH,
           25
         );
 
@@ -2833,17 +2882,17 @@ function drawCrew(){
 
           drawCrewImageInto(
             person.image,
-            x+photoSize/2,
-            photoY+photoSize/2,
-            photoSize,
-            photoSize,
+            x+photoW/2,
+            photoY+photoH/2,
+            photoW,
+            photoH,
             ()=>{
 
               roundRectPath(
                 x,
                 photoY,
-                photoSize,
-                photoSize,
+                photoW,
+                photoH,
                 25
               );
 
@@ -2857,8 +2906,8 @@ function drawCrew(){
           roundRectPath(
             x,
             photoY,
-            photoSize,
-            photoSize,
+            photoW,
+            photoH,
             25
           );
 
@@ -2871,8 +2920,8 @@ function drawCrew(){
           ctx.fillRect(
             x,
             photoY,
-            photoSize,
-            photoSize
+            photoW,
+            photoH
           );
 
 
@@ -2886,8 +2935,8 @@ function drawCrew(){
         roundRectPath(
           x,
           photoY,
-          photoSize,
-          photoSize,
+          photoW,
+          photoH,
           25
         );
 
@@ -2907,8 +2956,8 @@ function drawCrew(){
         roundRectPath(
           x+15,
           photoY+15,
-          photoSize-30,
-          photoSize-30,
+          photoW-30,
+          photoH-30,
           18
         );
 
@@ -2926,13 +2975,13 @@ function drawCrew(){
             "rgba(251,243,220,.5)";
 
           ctx.font=
-            '500 20px "Space Grotesk"';
+            `500 ${placeholderFontSize}px "Space Grotesk"`;
 
 
           ctx.fillText(
             `FRIEND ${index+1} PHOTO`,
-            x+photoSize/2,
-            photoY+photoSize/2
+            x+photoW/2,
+            photoY+photoH/2
           );
 
         }
@@ -2946,15 +2995,13 @@ function drawCrew(){
         ctx.fillStyle=CREAM;
 
         ctx.font=
-          count===3
-            ?'900 32px "Fraunces"'
-            :'900 40px "Fraunces"';
+          `900 ${nameFontSize}px "Fraunces"`;
 
 
         ctx.fillText(
           person.name,
-          x+photoSize/2,
-          photoY+photoSize+65
+          x+photoW/2,
+          photoY+photoH+nameGap
         );
 
 
@@ -2963,27 +3010,37 @@ function drawCrew(){
         ctx.fillStyle=YELLOW;
 
         ctx.font=
-          '700 18px "JetBrains Mono"';
+          `700 ${numberFontSize}px "JetBrains Mono"`;
 
 
         ctx.fillText(
           `// 0${index+1}`,
-          x+photoSize/2,
-          photoY+photoSize+92
+          x+photoW/2,
+          photoY+photoH+nameGap+numberGap
         );
 
       }
     );
 
 
-    /* CREW LABEL */
+    /* CREW LABEL — positioned relative to
+       the photo block instead of a fixed
+       offset from the canvas bottom, so it
+       never floats in empty space. */
+
+    const labelY=
+      photoY+
+      photoH+
+      nameGap+
+      numberGap+
+      70;
 
     ctx.textAlign="center";
 
     ctx.fillStyle=PINK;
 
     ctx.font=
-      '900 26px "JetBrains Mono"';
+      '900 28px "JetBrains Mono"';
 
 
     ctx.fillText(
@@ -2993,7 +3050,10 @@ function drawCrew(){
           :"BUILDERS"
       } · ONE CREW`,
       w/2,
-      h-115
+      Math.min(
+        labelY,
+        h-90
+      )
     );
 
   }

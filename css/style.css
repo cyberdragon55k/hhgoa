@@ -304,7 +304,7 @@ h1 em{
 
   border-radius:var(--radius);
 
-  padding:20px;
+  padding:22px 24px;
 
   min-height:560px;
   height:560px;
@@ -379,14 +379,16 @@ input[type=file]{
   align-items:center;
   justify-content:center;
   width:100%;
+  min-height:42px;
   border:1.5px dashed rgba(18,52,34,.25);
   background:var(--cream-2);
   border-radius:9px;
-  padding:10px 10px;
+  padding:12px 10px;
   text-align:center;
   color:rgba(18,52,34,.55);
   font-family:"Space Grotesk",sans-serif;
-  font-size:12px;
+  font-size:12.5px;
+  font-weight:600;
   cursor:pointer;
   transition:
     border-color .15s ease,
@@ -420,7 +422,7 @@ input[type=file]{
 .upload-row{
   display:flex;
   align-items:stretch;
-  gap:6px;
+  gap:8px;
 }
 
 .upload-row .upload-btn{
@@ -465,14 +467,14 @@ input[type=file]{
 /* FIELDS */
 
 .field{
-  margin-top:10px;
+  margin-top:14px;
 }
 
 .field label{
   display:block;
-  margin-bottom:5px;
+  margin-bottom:6px;
   font-family:"JetBrains Mono",monospace;
-  font-size:9px;
+  font-size:10px;
   letter-spacing:.06em;
   text-transform:uppercase;
   color:rgba(18,52,34,.55);
@@ -486,9 +488,9 @@ input[type=file]{
   background:white;
   color:var(--ink);
   border-radius:9px;
-  padding:9px 10px;
+  padding:11px 12px;
   font-family:"Space Grotesk",sans-serif;
-  font-size:13px;
+  font-size:14px;
   outline:none;
 }
 
@@ -513,29 +515,29 @@ input[type=file]{
 /* CREW COLLAGE */
 
 .crew-member{
-  margin-top:16px;
-  padding-top:14px;
+  margin-top:24px;
+  padding-top:20px;
   border-top:1px solid rgba(18,52,34,.1);
 }
 
 .crew-member:first-of-type{
-  margin-top:14px;
-  padding-top:14px;
+  margin-top:20px;
+  padding-top:20px;
 }
 
 .crew-member-title{
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:9px;
   font-family:"Fraunces",serif;
-  font-size:14px;
+  font-size:16px;
   font-weight:700;
   color:var(--ink);
 }
 
 .crew-member-title span{
-  width:19px;
-  height:19px;
+  width:21px;
+  height:21px;
   border-radius:50%;
   background:var(--forest-mid);
   color:white;
@@ -545,18 +547,19 @@ input[type=file]{
   font-family:"JetBrains Mono",monospace;
   font-size:10px;
   font-weight:700;
+  flex-shrink:0;
 }
 
 .crew-group{
-  margin-top:18px;
-  padding-top:14px;
+  margin-top:26px;
+  padding-top:20px;
   border-top:1px dashed rgba(18,52,34,.18);
 }
 
 .crew-group h3{
-  margin:0 0 4px;
+  margin:0 0 5px;
   font-family:"Fraunces",serif;
-  font-size:14px;
+  font-size:15px;
   color:var(--ink);
 }
 
