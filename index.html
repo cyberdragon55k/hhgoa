@@ -23,24 +23,33 @@
 <div class="wrap">
 
 <header>
-  <div class="eyebrow">
-    28–31 OCT 2026
-    <span class="dim">·</span>
-    Goa, India
-    <span class="dim">·</span>
-    247 builders
-  </div>
+  <div class="header-top">
 
-  <div class="title-row">
-    <h1>Frame <em>In</em> Goa</h1>
+    <div class="header-text">
+
+      <div class="eyebrow">
+        28–31 OCT 2026
+        <span class="dim">·</span>
+        Goa, India
+        <span class="dim">·</span>
+        247 builders
+      </div>
+
+      <div class="title-row">
+        <h1>Frame <em>In</em> Goa</h1>
+        <span class="devanagari">गोवा</span>
+      </div>
+
+      <p class="sub">
+        Create your HH Goa 2026 graphic. Upload a photo,
+        customize it and download your artwork.
+      </p>
+
+    </div>
+
     <img class="hh-logo" src="assets/hh-logo.svg" alt="HH Goa logo">
-    <span class="devanagari">गोवा</span>
-  </div>
 
-  <p class="sub">
-    Create your HH Goa 2026 graphic. Upload a photo,
-    customize it and download your artwork.
-  </p>
+  </div>
 </header>
 
 
@@ -434,9 +443,20 @@
 
       <label>Photo</label>
 
-      <label class="upload-btn" for="crewFile1" id="crewFile1Label">
-        Tap to choose photo
-      </label>
+      <div class="upload-row">
+
+        <label class="upload-btn" for="crewFile1" id="crewFile1Label">
+          Tap to choose photo
+        </label>
+
+        <button
+          type="button"
+          class="remove-btn"
+          id="crewFile1Remove"
+          aria-label="Remove Friend 1 photo"
+        >✕</button>
+
+      </div>
 
       <input
         type="file"
@@ -475,9 +495,20 @@
 
       <label>Photo</label>
 
-      <label class="upload-btn" for="crewFile2" id="crewFile2Label">
-        Tap to choose photo
-      </label>
+      <div class="upload-row">
+
+        <label class="upload-btn" for="crewFile2" id="crewFile2Label">
+          Tap to choose photo
+        </label>
+
+        <button
+          type="button"
+          class="remove-btn"
+          id="crewFile2Remove"
+          aria-label="Remove Friend 2 photo"
+        >✕</button>
+
+      </div>
 
       <input
         type="file"
@@ -516,9 +547,20 @@
 
       <label>Photo</label>
 
-      <label class="upload-btn" for="crewFile3" id="crewFile3Label">
-        Tap to choose photo
-      </label>
+      <div class="upload-row">
+
+        <label class="upload-btn" for="crewFile3" id="crewFile3Label">
+          Tap to choose photo
+        </label>
+
+        <button
+          type="button"
+          class="remove-btn"
+          id="crewFile3Remove"
+          aria-label="Remove Friend 3 photo"
+        >✕</button>
+
+      </div>
 
       <input
         type="file"
@@ -545,9 +587,20 @@
 
       <label>Group photo</label>
 
-      <label class="upload-btn" for="crewGroupFile" id="crewGroupFileLabel">
-        Tap to choose group photo
-      </label>
+      <div class="upload-row">
+
+        <label class="upload-btn" for="crewGroupFile" id="crewGroupFileLabel">
+          Tap to choose group photo
+        </label>
+
+        <button
+          type="button"
+          class="remove-btn"
+          id="crewGroupFileRemove"
+          aria-label="Remove group photo"
+        >✕</button>
+
+      </div>
 
       <input
         type="file"

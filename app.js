@@ -35,6 +35,11 @@ const crewFile2Label=document.getElementById("crewFile2Label");
 const crewFile3Label=document.getElementById("crewFile3Label");
 const crewGroupFileLabel=document.getElementById("crewGroupFileLabel");
 
+const crewFile1Remove=document.getElementById("crewFile1Remove");
+const crewFile2Remove=document.getElementById("crewFile2Remove");
+const crewFile3Remove=document.getElementById("crewFile3Remove");
+const crewGroupFileRemove=document.getElementById("crewGroupFileRemove");
+
 const crewMembers=document.querySelectorAll(".crew-member");
 
 const nameInput=document.getElementById("nameInput");
@@ -506,6 +511,21 @@ const CREW_FILE_LABELS=[
   crewFile3Label
 ];
 
+const CREW_FILE_INPUTS=[
+  crewFile1,
+  crewFile2,
+  crewFile3
+];
+
+const CREW_FILE_REMOVE_BTNS=[
+  crewFile1Remove,
+  crewFile2Remove,
+  crewFile3Remove
+];
+
+const CREW_FILE_DEFAULT_TEXT=
+  "Tap to choose photo";
+
 
 function enableOutputButtons(){
 
@@ -520,6 +540,95 @@ function enableOutputButtons(){
     shareBtn.disabled=false;
 
   }
+
+}
+
+
+function clearGroupPhoto(silent){
+
+  crewGroupImage=null;
+
+  if(crewGroupFile){
+
+    crewGroupFile.value="";
+
+  }
+
+  if(crewGroupFileLabel){
+
+    crewGroupFileLabel.textContent=
+      "Tap to choose group photo";
+
+    crewGroupFileLabel.classList.remove(
+      "has-file"
+    );
+
+  }
+
+  if(crewGroupFileRemove){
+
+    crewGroupFileRemove.classList.remove(
+      "is-visible"
+    );
+
+  }
+
+  if(!silent){
+
+    draw();
+
+    showStatus(
+      "Group photo removed — showing individual photos"
+    );
+
+  }
+
+}
+
+
+function clearCrewImage(index){
+
+  crewImages[index]=null;
+
+  const input=
+    CREW_FILE_INPUTS[index];
+
+  if(input){
+
+    input.value="";
+
+  }
+
+  const label=
+    CREW_FILE_LABELS[index];
+
+  if(label){
+
+    label.textContent=
+      CREW_FILE_DEFAULT_TEXT;
+
+    label.classList.remove(
+      "has-file"
+    );
+
+  }
+
+  const removeBtn=
+    CREW_FILE_REMOVE_BTNS[index];
+
+  if(removeBtn){
+
+    removeBtn.classList.remove(
+      "is-visible"
+    );
+
+  }
+
+  draw();
+
+  showStatus(
+    `Friend ${index+1} photo removed`
+  );
 
 }
 
@@ -552,13 +661,47 @@ function loadCrewImage(file,index){
 
       }
 
+      const removeBtn=
+        CREW_FILE_REMOVE_BTNS[index];
+
+      if(removeBtn){
+
+        removeBtn.classList.add(
+          "is-visible"
+        );
+
+      }
+
+
+      /*
+        An individual photo and a group
+        photo can't both be shown at once —
+        the group photo takes priority in
+        drawCrew(). So uploading an
+        individual photo automatically
+        clears any group photo, instead of
+        silently doing nothing.
+      */
+
+      if(crewGroupImage){
+
+        clearGroupPhoto(true);
+
+        showStatus(
+          `Friend ${index+1} photo loaded — group photo cleared`
+        );
+
+      }else{
+
+        showStatus(
+          `Friend ${index+1} photo loaded`
+        );
+
+      }
+
       enableOutputButtons();
 
       draw();
-
-      showStatus(
-        `Friend ${index+1} photo loaded`
-      );
 
     };
 
@@ -600,6 +743,14 @@ function loadCrewGroupImage(file){
 
         crewGroupFileLabel.classList.add(
           "has-file"
+        );
+
+      }
+
+      if(crewGroupFileRemove){
+
+        crewGroupFileRemove.classList.add(
+          "is-visible"
         );
 
       }
@@ -699,6 +850,42 @@ if(crewGroupFile){
       loadCrewGroupImage(
         event.target.files[0]
       );
+
+    }
+  );
+
+}
+
+
+/* REMOVE BUTTONS */
+
+[
+  crewFile1Remove,
+  crewFile2Remove,
+  crewFile3Remove
+].forEach((btn,index)=>{
+
+  if(!btn)return;
+
+  btn.addEventListener(
+    "click",
+    ()=>{
+
+      clearCrewImage(index);
+
+    }
+  );
+
+});
+
+
+if(crewGroupFileRemove){
+
+  crewGroupFileRemove.addEventListener(
+    "click",
+    ()=>{
+
+      clearGroupPhoto();
 
     }
   );
@@ -2337,7 +2524,7 @@ function drawBanner(){
   ctx.fillStyle=accent;
 
   ctx.font=
-    '700 18px "JetBrains Mono"';
+    '700 21px "JetBrains Mono"';
 
   ctx.fillText(
     "03 · SIGNAL BANNER",
@@ -2412,7 +2599,7 @@ function drawBanner(){
   ctx.globalAlpha=.75;
 
   ctx.font=
-    '500 17px "JetBrains Mono"';
+    '500 20px "JetBrains Mono"';
 
 
   ctx.fillText(
@@ -2437,7 +2624,7 @@ function drawBanner(){
   ctx.fillStyle=accent;
 
   ctx.font=
-    '700 16px "JetBrains Mono"';
+    '700 19px "JetBrains Mono"';
 
   ctx.fillText(
     "#FRAMEINGOA",
@@ -2776,7 +2963,7 @@ function drawCrew(){
         ctx.fillStyle=YELLOW;
 
         ctx.font=
-          '700 15px "JetBrains Mono"';
+          '700 18px "JetBrains Mono"';
 
 
         ctx.fillText(
@@ -2932,7 +3119,7 @@ function drawCrew(){
     ctx.fillStyle=PINK;
 
     ctx.font=
-      '700 19px "JetBrains Mono"';
+      '700 22px "JetBrains Mono"';
 
 
     ctx.fillText(
@@ -2955,7 +3142,7 @@ function drawCrew(){
   ctx.fillStyle=YELLOW;
 
   ctx.font=
-    '700 22px "JetBrains Mono"';
+    '700 24px "JetBrains Mono"';
 
 
   ctx.fillText(
@@ -2981,7 +3168,7 @@ function drawCrew(){
   ctx.fillStyle=PINK;
 
   ctx.font=
-    '700 20px "JetBrains Mono"';
+    '700 22px "JetBrains Mono"';
 
 
   ctx.fillText(
@@ -3065,7 +3252,7 @@ function drawCrew(){
     "rgba(251,243,220,.65)";
 
   ctx.font=
-    '600 18px "JetBrains Mono"';
+    '600 21px "JetBrains Mono"';
 
 
   ctx.fillText(
@@ -3196,7 +3383,7 @@ function drawDispatch(){
   ctx.fillStyle=accent;
 
   ctx.font=
-    '700 18px "JetBrains Mono"';
+    '700 20px "JetBrains Mono"';
 
   ctx.textAlign="left";
 
@@ -3212,7 +3399,7 @@ function drawDispatch(){
     "rgba(18,52,34,.5)";
 
   ctx.font=
-    '500 15px "JetBrains Mono"';
+    '500 17px "JetBrains Mono"';
 
 
   ctx.fillText(
@@ -3350,7 +3537,7 @@ function drawDispatch(){
       "rgba(18,52,34,.5)";
 
     ctx.font=
-      '500 16px "JetBrains Mono"';
+      '500 18px "JetBrains Mono"';
 
     ctx.textAlign="center";
 
@@ -3383,7 +3570,7 @@ function drawDispatch(){
   ctx.fillStyle=accent;
 
   ctx.font=
-    '700 14px "JetBrains Mono"';
+    '700 16px "JetBrains Mono"';
 
 
   ctx.fillText(
@@ -3400,7 +3587,7 @@ function drawDispatch(){
   ctx.fillStyle=ink;
 
   ctx.font=
-    '700 16px "JetBrains Mono"';
+    '700 19px "JetBrains Mono"';
 
 
   ctx.fillText(
