@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+
+<title>Frame In Goa — HH Goa 2026</title>
+
+<meta name="theme-color" content="#0B6839">
+<meta property="og:title" content="Frame In Goa — HH Goa 2026">
+<meta property="og:description" content="Create your HH Goa 2026 graphic.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Devanagari:wght@600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">
+    28–31 OCT 2026
+    <span class="dim">·</span>
+    Goa, India
+    <span class="dim">·</span>
+    247 builders
+  </div>
+
+  <div class="title-row">
+    <h1>Frame <em>In</em> Goa</h1>
+    <img class="hh-logo" src="assets/hh-logo.svg" alt="HH Goa logo">
+    <span class="devanagari">गोवा</span>
+  </div>
+
+  <p class="sub">
+    Create your HH Goa 2026 graphic. Upload a photo,
+    customize it and download your artwork.
+  </p>
+</header>
+
+
+<!-- MODES -->
+
+<div class="tabs">
+
+  <button class="tab active" data-mode="pfp">
+    <span class="tab-number">01</span>
+    <span>FACE FLAG</span>
+  </button>
+
+  <button class="tab" data-mode="card">
+    <span class="tab-number">02</span>
+    <span>BUILDER PASS</span>
+  </button>
+
+  <button class="tab" data-mode="banner">
+    <span class="tab-number">03</span>
+    <span>SIGNAL BANNER</span>
+  </button>
+
+  <!-- FIXED: dispatch → crew -->
+  <button class="tab" data-mode="crew">
+    <span class="tab-number">04</span>
+    <span>CREW COLLAGE</span>
+  </button>
+
+  <button class="tab dispatch-tab" data-mode="dispatch">
+    <span class="dispatch-star">✦</span>
+    <span>GOA DISPATCH</span>
+  </button>
+
+</div>
+
+<!-- GENERATOR -->
+
+<div class="grid">
+
+
+<!-- LEFT -->
+
+<div class="panel">
+
+  <h2>
+    <span class="n">1</span>
+    Upload your photo
+  </h2>
+
+  <div class="dropzone" id="dropzone">
+    <strong>Tap to upload</strong>
+    or drag a photo here
+    <br>
+    JPG, PNG, HEIC — any crop, any orientation.
+  </div>
+
+  <input
+    type="file"
+    id="fileInput"
+    accept="image/*,.heic,.heif"
+    capture="environment"
+  >
+
+
+  <!-- ZOOM -->
+
+  <div class="slider-row" id="zoomRow" style="display:none;">
+
+    <label>
+      <span>Zoom & reposition</span>
+      <span id="zoomVal">1.0×</span>
+    </label>
+
+    <input
+      type="range"
+      id="zoom"
+      min="100"
+      max="300"
+      value="100"
+    >
+
+    <p class="hint">
+      Drag your photo on the preview to reposition it.
+    </p>
+
+  </div>
+
+
+  <!-- BUILDER -->
+
+  <div id="cardFields" style="display:none;">
+
+    <h2>
+      <span class="n">2</span>
+      Builder details
+    </h2>
+
+    <div class="field">
+      <label>Name</label>
+
+      <input
+        type="text"
+        id="nameInput"
+        placeholder="e.g. Aditya Namdeo"
+        maxlength="26"
+      >
+    </div>
+
+    <div class="row2">
+
+      <div class="field">
+        <label>Stack / role</label>
+
+        <input
+          type="text"
+          id="roleInput"
+          placeholder="Full-stack, AI/ML"
+          maxlength="22"
+        >
+      </div>
+
+      <div class="field">
+        <label>Badge no.</label>
+
+        <input
+          type="text"
+          id="badgeInput"
+          maxlength="6"
+        >
+      </div>
+
+    </div>
+
+    <div class="title-pill">
+
+      <span id="builderTitle">
+        THE MIDNIGHT SHIPPER
+      </span>
+
+      <button id="rerollBtn" type="button">
+        ↻ Reroll
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- SIGNAL BANNER -->
+
+  <div id="bannerFields" style="display:none;">
+
+    <h2>
+      <span class="n">2</span>
+      Customize banner
+    </h2>
+
+    <div class="field">
+      <label>Main heading</label>
+
+      <input
+        type="text"
+        id="bannerTitle"
+        value="HACKER HOUSE"
+        maxlength="28"
+      >
+    </div>
+
+    <div class="field">
+      <label>Subtitle</label>
+
+      <input
+        type="text"
+        id="bannerSub"
+        value="GOA"
+        maxlength="30"
+      >
+    </div>
+
+    <div class="row2">
+
+      <div class="field">
+        <label>Location</label>
+
+        <input
+          type="text"
+          id="bannerLocation"
+          value="GOA, INDIA"
+          maxlength="24"
+        >
+      </div>
+
+      <div class="field">
+        <label>Date</label>
+
+        <input
+          type="text"
+          id="bannerDate"
+          value="28 — 31 OCT 2026"
+          maxlength="24"
+        >
+      </div>
+
+    </div>
+
+    <div class="field">
+      <label>Banner size</label>
+
+      <select id="bannerSize">
+
+        <option value="wide">
+          1500 × 500 — Website
+        </option>
+
+        <option value="social" selected>
+          1600 × 900 — Landscape
+        </option>
+
+        <option value="hd">
+          1920 × 1080 — HD
+        </option>
+
+        <option value="post">
+          1200 × 628 — Social
+        </option>
+
+      </select>
+    </div>
+
+    <div class="row2">
+
+      <div class="field">
+        <label>Photo position</label>
+
+        <select id="bannerPhotoPosition">
+          <option value="right">Right</option>
+          <option value="left">Left</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Theme</label>
+
+        <select id="bannerTheme">
+
+          <option value="goa">
+            Goa
+          </option>
+
+          <option value="pink">
+            Pink
+          </option>
+
+          <option value="yellow">
+            Yellow
+          </option>
+
+          <option value="cream">
+            Cream
+          </option>
+
+        </select>
+      </div>
+
+    </div>
+
+    <div class="row2">
+
+      <div class="field">
+        <label>Typography</label>
+
+        <select id="bannerFont">
+
+          <option value="editorial">
+            Editorial
+          </option>
+
+          <option value="bold">
+            Bold
+          </option>
+
+          <option value="mono">
+            Mono
+          </option>
+
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Photo</label>
+
+        <select id="bannerPhoto">
+
+          <option value="yes">
+            Show photo
+          </option>
+
+          <option value="no">
+            No photo
+          </option>
+
+        </select>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CREW COLLAGE -->
+
+<div id="crewFields" style="display:none;">
+
+  <h2>
+    <span class="n">2</span>
+    Build your crew
+  </h2>
+
+
+  <!-- NUMBER OF PEOPLE -->
+
+  <div class="field">
+
+    <label>Number of builders</label>
+
+    <select id="crewCount">
+
+      <option value="1">
+        1 Builder
+      </option>
+
+      <option value="2">
+        2 Builders
+      </option>
+
+      <option value="3" selected>
+        3 Builders
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <!-- FRIEND 1 -->
+
+  <div class="crew-member" data-crew-index="1">
+
+    <div class="crew-member-title">
+      <span>01</span>
+      Friend One
+    </div>
+
+    <div class="field">
+
+      <label>Name</label>
+
+      <input
+        type="text"
+        id="crewName1"
+        placeholder="e.g. Aditya"
+        maxlength="20"
+      >
+
+    </div>
+
+    <div class="field">
+
+      <label>Photo</label>
+
+      <label class="upload-btn" for="crewFile1" id="crewFile1Label">
+        Tap to choose photo
+      </label>
+
+      <input
+        type="file"
+        id="crewFile1"
+        accept="image/*,.heic,.heif"
+      >
+
+    </div>
+
+  </div>
+
+
+  <!-- FRIEND 2 -->
+
+  <div class="crew-member" data-crew-index="2">
+
+    <div class="crew-member-title">
+      <span>02</span>
+      Friend Two
+    </div>
+
+    <div class="field">
+
+      <label>Name</label>
+
+      <input
+        type="text"
+        id="crewName2"
+        placeholder="e.g. Rahul"
+        maxlength="20"
+      >
+
+    </div>
+
+    <div class="field">
+
+      <label>Photo</label>
+
+      <label class="upload-btn" for="crewFile2" id="crewFile2Label">
+        Tap to choose photo
+      </label>
+
+      <input
+        type="file"
+        id="crewFile2"
+        accept="image/*,.heic,.heif"
+      >
+
+    </div>
+
+  </div>
+
+
+  <!-- FRIEND 3 -->
+
+  <div class="crew-member" data-crew-index="3">
+
+    <div class="crew-member-title">
+      <span>03</span>
+      Friend Three
+    </div>
+
+    <div class="field">
+
+      <label>Name</label>
+
+      <input
+        type="text"
+        id="crewName3"
+        placeholder="e.g. Aman"
+        maxlength="20"
+      >
+
+    </div>
+
+    <div class="field">
+
+      <label>Photo</label>
+
+      <label class="upload-btn" for="crewFile3" id="crewFile3Label">
+        Tap to choose photo
+      </label>
+
+      <input
+        type="file"
+        id="crewFile3"
+        accept="image/*,.heic,.heif"
+      >
+
+    </div>
+
+  </div>
+
+
+  <!-- OPTIONAL GROUP PHOTO -->
+
+  <div class="crew-group">
+
+    <h3>Optional group photo</h3>
+
+    <p class="hint">
+      Upload a group photo instead of the three individual photos.
+    </p>
+
+    <div class="field">
+
+      <label>Group photo</label>
+
+      <label class="upload-btn" for="crewGroupFile" id="crewGroupFileLabel">
+        Tap to choose group photo
+      </label>
+
+      <input
+        type="file"
+        id="crewGroupFile"
+        accept="image/*,.heic,.heif"
+      >
+
+    </div>
+
+  </div>
+
+</div>
+
+  <!-- GOA DISPATCH -->
+
+  <div id="dispatchFields" style="display:none;">
+
+    <h2>
+      <span class="n">2</span>
+      Goa dispatch
+    </h2>
+
+    <div class="field">
+      <label>Postcard title</label>
+
+      <input
+        type="text"
+        id="dispatchTitle"
+        value="Greetings from Goa"
+        maxlength="30"
+      >
+    </div>
+
+    <div class="field">
+      <label>Your note</label>
+
+      <textarea
+        id="dispatchMessage"
+        rows="3"
+        maxlength="160"
+      >Dear future me, we built something bright by the sea.</textarea>
+    </div>
+
+    <div class="row2">
+
+      <div class="field">
+        <label>From</label>
+
+        <input
+          type="text"
+          id="dispatchFrom"
+          value="Hacker House Goa"
+          maxlength="24"
+        >
+      </div>
+
+      <div class="field">
+        <label>Stamp</label>
+
+        <select id="dispatchStamp">
+
+          <option value="airmail">
+            AIRMAIL · GOA
+          </option>
+
+          <option value="goa">
+            GOA · INDIA
+          </option>
+
+          <option value="hh">
+            HH · 2026
+          </option>
+
+        </select>
+      </div>
+
+    </div>
+
+    <div class="field">
+      <label>Postcard style</label>
+
+      <select id="dispatchTheme">
+
+        <option value="yellow">
+          Goa Yellow
+        </option>
+
+        <option value="pink">
+          Pink Sunset
+        </option>
+
+        <option value="cream">
+          Vintage Cream
+        </option>
+
+        <option value="green">
+          Forest Goa
+        </option>
+
+      </select>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- RIGHT -->
+
+<div class="panel">
+
+  <h2>
+    <span class="n">→</span>
+    Your graphic
+  </h2>
+
+  <div class="preview-stage">
+
+    <canvas
+      id="canvas"
+      width="1080"
+      height="1080"
+    ></canvas>
+
+  </div>
+
+  <div class="actions">
+
+    <button
+      class="btn btn-primary"
+      id="downloadBtn"
+      disabled
+    >
+      ⬇ Download PNG
+    </button>
+
+    <button
+      class="btn btn-secondary"
+      id="shareBtn"
+      disabled
+    >
+      𝕏 Share
+    </button>
+
+  </div>
+
+  <div class="caption-preview">
+
+    <b>Caption:</b>
+
+    <span id="captionText">
+      Repping HH Goa 2026 🌴⚡ #FrameInGoa
+    </span>
+
+  </div>
+
+</div>
+
+</div>
+
+
+<footer>
+
+  <span>#FrameInGoa</span>
+
+  <span>
+    hhgoa.com · Hacker House Goa 2026
+  </span>
+
+</footer>
+
+</div>
+
+
+<div class="status" id="status">
+  Ready
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
