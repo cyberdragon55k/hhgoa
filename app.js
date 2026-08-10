@@ -65,6 +65,12 @@ const dispatchFrom=document.getElementById("dispatchFrom");
 const dispatchStamp=document.getElementById("dispatchStamp");
 const dispatchTheme=document.getElementById("dispatchTheme");
 
+const hackathonFields=document.getElementById("hackathonFields");
+const hackTopText=document.getElementById("hackTopText");
+const hackBottomText=document.getElementById("hackBottomText");
+const hackRibbon1=document.getElementById("hackRibbon1");
+const hackRibbon2=document.getElementById("hackRibbon2");
+
 const downloadBtn=document.getElementById("downloadBtn");
 const shareBtn=document.getElementById("shareBtn");
 
@@ -96,6 +102,11 @@ const DISPATCH={
 const CREW={
   w:1080,
   h:1350
+};
+
+const HACKATHON={
+  w:1080,
+  h:1080
 };
 
 const BANNER_SIZES={
@@ -352,6 +363,13 @@ tabs.forEach(tab=>{
 
     }
 
+    if(hackathonFields){
+      hackathonFields.style.display=
+        mode==="hackathon"
+          ? "block"
+          : "none";
+    }
+
 
     /* CANVAS SIZE */
 
@@ -394,6 +412,11 @@ tabs.forEach(tab=>{
       canvas.width=CREW.w;
       canvas.height=CREW.h;
 
+    }
+
+    if(mode==="hackathon"){
+      canvas.width=HACKATHON.w;
+      canvas.height=HACKATHON.h;
     }
 
 
@@ -1237,6 +1260,16 @@ function well(){
 
   }
 
+  if(mode==="hackathon"){
+    return{
+      cx:HACKATHON.w/2,
+      cy:HACKATHON.h/2,
+      w:460,
+      h:460,
+      r:230
+    };
+  }
+
 
   return{
 
@@ -1579,6 +1612,23 @@ if(rerollBtn){
 
 
 /* =====================================================
+   HACKATHON INPUTS
+===================================================== */
+[
+  hackTopText,
+  hackBottomText,
+  hackRibbon1,
+  hackRibbon2
+].forEach(input=>{
+  if(!input)return;
+  input.addEventListener("input", ()=>{
+    draw();
+    updateCaption();
+  });
+});
+
+
+/* =====================================================
    CREW INPUTS
 ===================================================== */
 
@@ -1896,6 +1946,10 @@ function draw(){
 
     drawDispatch();
 
+  }else if(mode==="hackathon"){
+
+    drawHackathon();
+
   }
 
 }
@@ -2034,6 +2088,137 @@ function drawPFP(){
     1
   );
 
+}
+
+
+/* =====================================================
+   HACKATHON BADGE
+===================================================== */
+function drawHackathon(){
+  const w = HACKATHON.w;
+  const h = HACKATHON.h;
+  const cx = w/2;
+  const cy = h/2;
+  const r = w*.47; // Outer radius
+
+  // Clear for transparent corners
+  ctx.clearRect(0, 0, w, h);
+
+  // 1. Outer Cream Ring
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI*2);
+  ctx.fillStyle = CREAM;
+  ctx.fill();
+  
+  // Pink outer edge outline
+  ctx.lineWidth = 10;
+  ctx.strokeStyle = PINK;
+  ctx.stroke();
+
+  // 2. Inner Green Circle
+  const innerR = r - 75;
+  ctx.beginPath();
+  ctx.arc(cx, cy, innerR, 0, Math.PI*2);
+  ctx.fillStyle = FOREST_DEEP;
+  ctx.fill();
+
+  // Subtle gradient texture in the green
+  const grd = ctx.createRadialGradient(cx, cy, innerR-150, cx, cy, innerR);
+  grd.addColorStop(0, FOREST);
+  grd.addColorStop(1, FOREST_DEEP);
+  ctx.beginPath();
+  ctx.arc(cx, cy, innerR, 0, Math.PI*2);
+  ctx.fillStyle = grd;
+  ctx.fill();
+
+  // Outer gold rim
+  ctx.beginPath();
+  ctx.arc(cx, cy, innerR, 0, Math.PI*2);
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = YELLOW;
+  ctx.stroke();
+
+  // 3. Top Arc Text (Reading Left to Right)
+  drawArcText(
+    (hackTopText?.value || "HACKER HOUSE GOA 2026").toUpperCase(),
+    cx, cy, r - 38, -Math.PI/2, 6, '900 48px "Fraunces"', FOREST_DEEP, 1
+  );
+
+  // 4. Bottom Arc Text (Reading Left to Right at the bottom)
+  drawArcText(
+    (hackBottomText?.value || "#FRAMEINGOA").toUpperCase(),
+    cx, cy, r - 38, Math.PI/2, 10, '900 52px "JetBrains Mono"', YELLOW, -1
+  );
+
+  // 5. Center Photo
+  const photoR = 210;
+
+  // Gold shield/border around photo
+  ctx.beginPath();
+  ctx.arc(cx, cy, photoR + 15, 0, Math.PI*2);
+  ctx.fillStyle = YELLOW;
+  ctx.fill();
+  
+  ctx.beginPath();
+  ctx.arc(cx, cy, photoR + 5, 0, Math.PI*2);
+  ctx.fillStyle = FOREST_DEEP;
+  ctx.fill();
+
+  if(img){
+    drawImageInto(
+      cx, cy, photoR*2, photoR*2,
+      () => {
+        ctx.beginPath();
+        ctx.arc(cx, cy, photoR, 0, Math.PI*2);
+      }
+    );
+  } else {
+    ctx.beginPath();
+    ctx.arc(cx, cy, photoR, 0, Math.PI*2);
+    ctx.fillStyle = "rgba(251,243,220,.1)";
+    ctx.fill();
+    ctx.fillStyle = "rgba(251,243,220,.5)";
+    ctx.font = '500 24px "Space Grotesk"';
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("YOUR PHOTO", cx, cy);
+  }
+
+  // 6. Ribbons
+  function drawRibbon(y, text){
+    const rw = 210;
+    const rh = 54;
+    ctx.save();
+    ctx.translate(cx, y);
+
+    // Chevron Ribbon Shape
+    ctx.beginPath();
+    ctx.moveTo(-rw, -rh/2);
+    ctx.lineTo(rw, -rh/2);
+    ctx.lineTo(rw + 25, 0);
+    ctx.lineTo(rw, rh/2);
+    ctx.lineTo(-rw, rh/2);
+    ctx.lineTo(-rw - 25, 0);
+    ctx.closePath();
+
+    ctx.fillStyle = FOREST_DEEP;
+    ctx.fill();
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = YELLOW;
+    ctx.stroke();
+
+    // Ribbon Text
+    ctx.fillStyle = CREAM;
+    ctx.font = '700 24px "JetBrains Mono"';
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(text, 0, 3);
+
+    ctx.restore();
+  }
+
+  drawRibbon(cy - photoR - 15, (hackRibbon1?.value || "MASTER BADGE").toUpperCase());
+  drawRibbon(cy + photoR + 15, (hackRibbon2?.value || "247 BUILDERS").toUpperCase());
 }
 
 
@@ -3797,6 +3982,13 @@ function updateCaption(){
         names.join(", ")||
         "the crew"
       } 🌴⚡ #FrameInGoa`;
+
+  }else if(mode==="hackathon"){
+
+    caption=
+      `Unlocking my ${
+        hackRibbon1?.value||"MASTER BADGE"
+      } for the hackathon! 🛠️🔥 #FrameInGoa`;
 
   }else{
 
