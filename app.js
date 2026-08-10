@@ -27,6 +27,9 @@ const crewFile3=document.getElementById("crewFile3");
 
 const crewGroupFile=document.getElementById("crewGroupFile");
 
+const crewFilesAll=document.getElementById("crewFilesAll");
+const crewFilesAllLabel=document.getElementById("crewFilesAllLabel");
+
 const crewFile1Label=document.getElementById("crewFile1Label");
 const crewFile2Label=document.getElementById("crewFile2Label");
 const crewFile3Label=document.getElementById("crewFile3Label");
@@ -696,6 +699,68 @@ if(crewGroupFile){
       loadCrewGroupImage(
         event.target.files[0]
       );
+
+    }
+  );
+
+}
+
+
+/* BULK UPLOAD — ALL 3 AT ONCE */
+
+if(crewFilesAll){
+
+  crewFilesAll.addEventListener(
+    "change",
+    event=>{
+
+      const files=
+        Array.from(
+          event.target.files||[]
+        ).slice(0,3);
+
+      if(!files.length)return;
+
+
+      files.forEach(
+        (file,index)=>{
+
+          loadCrewImage(file,index);
+
+        }
+      );
+
+
+      if(crewFilesAllLabel){
+
+        crewFilesAllLabel.textContent=
+          files.length===1
+            ?`✓ ${files[0].name}`
+            :`✓ ${files.length} photos selected`;
+
+        crewFilesAllLabel.classList.add(
+          "has-file"
+        );
+
+      }
+
+
+      if(crewCount){
+
+        crewCount.value=
+          String(
+            Math.min(
+              3,
+              Math.max(
+                files.length,
+                Number(crewCount.value||1)
+              )
+            )
+          );
+
+        updateCrewFieldsVisibility();
+
+      }
 
     }
   );
