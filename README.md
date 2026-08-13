@@ -1,7 +1,5 @@
 # 🌴 Frame In Goa - Hacker House Goa 2026
 
-![Frame In Goa App Preview](image_02ca24.jpg)
-
 **Frame In Goa** is a custom graphic generator built for attendees of **Hacker House Goa 2026** (Oct 28-31, 2026). It allows the 247 participating builders to easily create, customize, and download personalized artwork to share their excitement and represent the event. 
 
 Check out the live deployment here: [hhgoa-one.vercel.app](https://hhgoa-one.vercel.app)
